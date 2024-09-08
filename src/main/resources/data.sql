@@ -18,7 +18,7 @@ VALUES
     (3, 'Tech Talk Series', '2023-01-01'),
     (4, 'Planet Earth II', '2016-11-06');
 -- Insert Media
-INSERT INTO media (id, title, release_Date, url, category, album_id)
+INSERT INTO media (id, title, release_date, url, category, album_id)
 VALUES
     (1, 'Come Together', '1969-09-26', 'https://spotify.com/music/come-together', 'MUSIC', 1),
     (2, 'Billie Jean', '1982-11-30', 'https://spotify.com/music/billie-jean', 'MUSIC', 2),
