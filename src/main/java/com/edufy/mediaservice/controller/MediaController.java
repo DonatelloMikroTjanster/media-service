@@ -31,6 +31,7 @@ public class MediaController {
 
     @PostMapping
     public Media createMedia(@RequestBody Media media) {
+        media.setId(null);
         return mediaService.saveMedia(media);
     }
 

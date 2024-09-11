@@ -1,5 +1,6 @@
 package com.edufy.mediaservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.Set;
 
@@ -17,6 +18,7 @@ public class Genre {
 
     @Column(name = "media", length = 100 )
     @ManyToMany(mappedBy = "genres")
+    @JsonIgnore
     private Set<Media> media;
 
     public Genre() {
