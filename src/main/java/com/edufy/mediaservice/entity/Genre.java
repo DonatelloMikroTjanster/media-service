@@ -2,6 +2,8 @@ package com.edufy.mediaservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -17,9 +19,9 @@ public class Genre {
     private String name;
 
     @Column(name = "media", length = 100 )
-    @ManyToMany(mappedBy = "genres")
+    @ManyToMany(mappedBy = "genres", fetch = FetchType.EAGER)
     @JsonIgnore
-    private Set<Media> media;
+    private Set<Media> media= new HashSet<>();
 
     public Genre() {
     }

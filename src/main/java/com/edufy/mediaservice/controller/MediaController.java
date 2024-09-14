@@ -31,7 +31,6 @@ public class MediaController {
 
     @PostMapping
     public Media createMedia(@RequestBody Media media) {
-        media.setId(null);
         return mediaService.saveMedia(media);
     }
 
@@ -43,9 +42,9 @@ public class MediaController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMedia(@PathVariable Long id) {
+    public ResponseEntity<String> deleteMedia(@PathVariable Long id) {
         mediaService.deleteMedia(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("Media with id " + id + " deleted successfully");
     }
 
     @GetMapping("/category/{category}")

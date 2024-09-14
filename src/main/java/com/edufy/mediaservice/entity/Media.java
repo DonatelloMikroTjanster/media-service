@@ -3,6 +3,7 @@ package com.edufy.mediaservice.entity;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -26,24 +27,23 @@ public class Media {
     @Column(name = "url", length = 100)
     private String url;
 
-    @ManyToMany
+    @ManyToMany (cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "media_genre",
             joinColumns = @JoinColumn(name = "media_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id"))
-    private Set<Genre> genres;
+    private Set<Genre> genres = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "album_id")
 
     private Album album;
 
-    @ManyToMany
+    @ManyToMany (cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "media_artist",
             joinColumns = @JoinColumn(name = "media_id"),
             inverseJoinColumns = @JoinColumn(name = "artist_id"))
-    private Set<Artist> artists;
+    private Set<Artist> artists = new HashSet<>();
 
-    // Getters and setters
 
 
     public Media() {
