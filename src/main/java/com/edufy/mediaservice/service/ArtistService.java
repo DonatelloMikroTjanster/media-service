@@ -20,10 +20,7 @@ public class ArtistService  {
         return artistRepository.findAll();
     }
 
-    public List<Media> getMediaByArtist(String artist) {
-        Artist artist1 = artistRepository.findByName(artist);
-        return new ArrayList<>(artist1.getMedia());
-    }
+
 
     public Artist saveArtist(Artist artist) {
         return artistRepository.save(artist);

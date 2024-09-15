@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class MediaService {
@@ -36,6 +33,21 @@ public class MediaService {
 
     public Optional<Media> getMediaById(Long id) {
         return mediaRepository.findById(id);
+    }
+
+    public List<Media> getMediaByArtist(String artist) {
+        Artist artist1 = artistRepository.findByName(artist);
+        return new ArrayList<>(artist1.getMedia());
+    }
+
+
+    public List<Media> getMediaByCategory(MediaCategory category) {
+        return mediaRepository.findByCategory(category);
+    }
+
+    public List<Media> getMediaByGenre(String genre) {
+        Genre genre1 = genreRepository.findByName(genre);
+        return new ArrayList<>(genre1.getMedia());
     }
 
     public Media saveMedia(Media media) {
@@ -108,10 +120,6 @@ public class MediaService {
         } catch (EmptyResultDataAccessException e) {
             throw new EmptyResultDataAccessException("Media not found", 1);
         }
-    }
-
-    public List<Media> getMediaByCategory(MediaCategory category) {
-        return mediaRepository.findByCategory(category);
     }
 
 

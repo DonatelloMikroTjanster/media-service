@@ -35,8 +35,19 @@ public class MediaController {
 
     @GetMapping("/byartist/{artist}")
     public List<Media> getMediaByArtist(@PathVariable String artist) {
-        return artistService.getMediaByArtist(artist);
+        return mediaService.getMediaByArtist(artist);
     }
+
+    @GetMapping("/bygenre/{genre}")
+    public List<Media> getMediaByGenre(@PathVariable String genre) {
+        return mediaService.getMediaByGenre(genre);
+    }
+
+    @GetMapping("/category/{category}")
+    public List<Media> getMediaByCategory(@PathVariable MediaCategory category) {
+        return mediaService.getMediaByCategory(category);
+    }
+
 
     @PostMapping
     public Media createMedia(@RequestBody Media media) {
@@ -56,10 +67,6 @@ public class MediaController {
         return ResponseEntity.ok("Media with id " + id + " deleted successfully");
     }
 
-    @GetMapping("/category/{category}")
-    public List<Media> getMediaByCategory(@PathVariable MediaCategory category) {
-        return mediaService.getMediaByCategory(category);
-    }
 
 
 
