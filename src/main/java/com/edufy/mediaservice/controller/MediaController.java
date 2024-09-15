@@ -26,12 +26,12 @@ public class MediaController {
         return mediaService.getAllMedia();
     }
 
-   /* @GetMapping("/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Media> getMediaById(@PathVariable Long id) {
         Optional<Media> media = mediaService.getMediaById(id);
         return media.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
-    } */
+    }
 
     @GetMapping("/byartist/{artist}")
     public List<Media> getMediaByArtist(@PathVariable String artist) {
