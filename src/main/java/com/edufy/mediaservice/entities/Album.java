@@ -1,4 +1,4 @@
-package com.edufy.mediaservice.entity;
+package com.edufy.mediaservice.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

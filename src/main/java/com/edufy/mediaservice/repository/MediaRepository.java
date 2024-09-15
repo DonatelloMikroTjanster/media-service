@@ -1,7 +1,7 @@
 package com.edufy.mediaservice.repository;
 
-import com.edufy.mediaservice.entity.Media;
-import com.edufy.mediaservice.entity.MediaCategory;
+import com.edufy.mediaservice.entities.Media;
+import com.edufy.mediaservice.entities.MediaCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

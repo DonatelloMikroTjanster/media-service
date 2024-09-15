@@ -1,8 +1,8 @@
-package com.edufy.mediaservice.controller;
+package com.edufy.mediaservice.controllers;
 
-import com.edufy.mediaservice.entity.Media;
-import com.edufy.mediaservice.entity.MediaCategory;
-import com.edufy.mediaservice.service.MediaService;
+import com.edufy.mediaservice.entities.Media;
+import com.edufy.mediaservice.entities.MediaCategory;
+import com.edufy.mediaservice.services.MediaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

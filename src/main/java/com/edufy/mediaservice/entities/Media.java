@@ -1,4 +1,4 @@
-package com.edufy.mediaservice.entity;
+package com.edufy.mediaservice.entities;
 
 import jakarta.persistence.*;
 

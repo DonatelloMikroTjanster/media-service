@@ -1,6 +1,6 @@
-package com.edufy.mediaservice.service;
+package com.edufy.mediaservice.services;
 
-import com.edufy.mediaservice.entity.Album;
+import com.edufy.mediaservice.entities.Album;
 import com.edufy.mediaservice.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

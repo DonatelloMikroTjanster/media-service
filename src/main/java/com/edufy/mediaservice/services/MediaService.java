@@ -1,6 +1,6 @@
-package com.edufy.mediaservice.service;
+package com.edufy.mediaservice.services;
 
-import com.edufy.mediaservice.entity.*;
+import com.edufy.mediaservice.entities.*;
 import com.edufy.mediaservice.repository.AlbumRepository;
 import com.edufy.mediaservice.repository.ArtistRepository;
 import com.edufy.mediaservice.repository.GenreRepository;

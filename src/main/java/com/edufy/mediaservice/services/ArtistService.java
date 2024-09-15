@@ -1,12 +1,10 @@
-package com.edufy.mediaservice.service;
+package com.edufy.mediaservice.services;
 
-import com.edufy.mediaservice.entity.Artist;
-import com.edufy.mediaservice.entity.Media;
+import com.edufy.mediaservice.entities.Artist;
 import com.edufy.mediaservice.repository.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
