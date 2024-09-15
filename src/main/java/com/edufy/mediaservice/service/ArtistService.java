@@ -1,15 +1,17 @@
 package com.edufy.mediaservice.service;
 
 import com.edufy.mediaservice.entity.Artist;
+import com.edufy.mediaservice.entity.Media;
 import com.edufy.mediaservice.repository.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ArtistService {
+public class ArtistService  {
 
     @Autowired
     private ArtistRepository artistRepository;
@@ -18,8 +20,9 @@ public class ArtistService {
         return artistRepository.findAll();
     }
 
-    public Optional<Artist> getArtistById(Long id) {
-        return artistRepository.findById(id);
+    public List<Media> getMediaByArtist(String artist) {
+        Artist artist1 = artistRepository.findByName(artist);
+        return new ArrayList<>(artist1.getMedia());
     }
 
     public Artist saveArtist(Artist artist) {
