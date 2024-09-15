@@ -35,19 +35,34 @@ public class MediaService {
         return mediaRepository.findById(id);
     }
 
-    public List<Media> getMediaByArtist(String artist) {
-        Artist artist1 = artistRepository.findByName(artist);
-        return new ArrayList<>(artist1.getMedia());
-    }
-
 
     public List<Media> getMediaByCategory(MediaCategory category) {
-        return mediaRepository.findByCategory(category);
+
+        List<Media> mediaList = mediaRepository.findByCategory(category);
+        if (mediaList.isEmpty()) {
+            throw new RuntimeException("No media found for category");
+        }
+        return mediaList;
     }
 
     public List<Media> getMediaByGenre(String genre) {
-        Genre genre1 = genreRepository.findByName(genre);
-        return new ArrayList<>(genre1.getMedia());
+
+        String genreName = genre.substring(0, 1).toUpperCase() + genre.substring(1).toLowerCase();
+        List<Media> mediaList = mediaRepository.findByGenresName(genreName);
+        if (mediaList.isEmpty()) {
+            throw new RuntimeException("No media found for genre");
+        } else {
+            return mediaList;
+        }
+    }
+
+    public List<Media> getAllMediaByArtistId(Long id) {
+        List<Media> mediaList =  mediaRepository.findByArtistsId(id);
+        if (mediaList.isEmpty()) {
+            throw new RuntimeException("No media found for artist");
+        } else {
+            return mediaList;
+        }
     }
 
     public Media saveMedia(Media media) {

@@ -2,7 +2,6 @@ package com.edufy.mediaservice.controller;
 
 import com.edufy.mediaservice.entity.Media;
 import com.edufy.mediaservice.entity.MediaCategory;
-import com.edufy.mediaservice.service.ArtistService;
 import com.edufy.mediaservice.service.MediaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +17,6 @@ public class MediaController {
     @Autowired
     private MediaService mediaService;
 
-    @Autowired
-    private ArtistService artistService;
 
     @GetMapping
     public List<Media> getAllMedia() {
@@ -33,19 +30,37 @@ public class MediaController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/byartist/{artist}")
-    public List<Media> getMediaByArtist(@PathVariable String artist) {
-        return mediaService.getMediaByArtist(artist);
+    @GetMapping("/artist/{id}")
+    public ResponseEntity<?> getMediaByArtist(@PathVariable Long id) {
+        try {
+            List<Media> mediaList = mediaService.getAllMediaByArtistId(id);
+            return ResponseEntity.ok(mediaList);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
     }
 
     @GetMapping("/bygenre/{genre}")
-    public List<Media> getMediaByGenre(@PathVariable String genre) {
-        return mediaService.getMediaByGenre(genre);
+    public ResponseEntity<?> getMediaByGenre(@PathVariable String genre) {
+        try {
+            List<Media> mediaList = mediaService.getMediaByGenre(genre);
+            return ResponseEntity.ok(mediaList);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
     }
 
-    @GetMapping("/category/{category}")
-    public List<Media> getMediaByCategory(@PathVariable MediaCategory category) {
-        return mediaService.getMediaByCategory(category);
+    @GetMapping("/bycategory/{category}")
+    public ResponseEntity<?> getMediaByCategory(@PathVariable String category) {
+        try {
+            MediaCategory mediaCategory = MediaCategory.valueOf(category.toUpperCase());
+            List<Media> mediaList = mediaService.getMediaByCategory(mediaCategory);
+            return ResponseEntity.ok(mediaList);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(400).body("Invalid category");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
     }
 
 

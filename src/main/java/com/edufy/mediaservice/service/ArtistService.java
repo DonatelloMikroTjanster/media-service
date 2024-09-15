@@ -20,8 +20,6 @@ public class ArtistService  {
         return artistRepository.findAll();
     }
 
-
-
     public Artist saveArtist(Artist artist) {
         return artistRepository.save(artist);
     }
@@ -42,6 +40,5 @@ public class ArtistService  {
     public void deleteArtist(Long id) {
         artistRepository.deleteById(id);
     }
-
 
 }
