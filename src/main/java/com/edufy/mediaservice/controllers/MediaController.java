@@ -18,7 +18,7 @@ public class MediaController {
     private MediaService mediaService;
 
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Media> getAllMedia() {
         return mediaService.getAllMedia();
     }
