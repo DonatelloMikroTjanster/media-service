@@ -25,6 +25,11 @@ public class Album {
     @JsonIgnore
     private Set<Media> media =  new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(name = "album_artist",
+            joinColumns = @JoinColumn(name = "album_id"),
+            inverseJoinColumns = @JoinColumn(name = "artist_id"))
+    private Set<Artist> artists = new HashSet<>();
 
 
     public Album() {
@@ -54,8 +59,19 @@ public class Album {
         this.releaseDate = releaseDate;
     }
 
+    public Set<Artist> getArtists() {
+        return artists;
+    }
+
+    public void setArtists(Set<Artist> artists) {
+        this.artists = artists;
+    }
+
     public Set<Media> getMedia() {
         return media;
     }
 
+    public void setMedia(Set<Media> media) {
+        this.media = media;
+    }
 }
