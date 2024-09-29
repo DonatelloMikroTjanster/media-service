@@ -16,10 +16,12 @@ public class Artist {
     @Column(name = "name", length = 100 )
     private String name;
 
-    @Column(name = "media", length = 100 )
-    @ManyToMany(mappedBy = "artists",fetch = FetchType.EAGER)
-    @JsonIgnore
+    @ManyToMany(mappedBy = "artists", cascade = CascadeType.ALL)
     private Set<Media> media = new HashSet<>();
+
+
+    @ManyToMany(mappedBy = "artists", cascade = CascadeType.ALL)
+    private Set<Album> albums = new HashSet<>();
 
     public Artist() {
     }
@@ -47,4 +49,14 @@ public class Artist {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Set<Album> getAlbums() {
+        return albums;
+    }
+
+    public void setAlbums(Set<Album> albums) {
+        this.albums = albums;
+    }
+
+
 }
