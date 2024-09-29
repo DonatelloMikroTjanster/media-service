@@ -14,17 +14,17 @@ public class Media {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title", length = 100)
+    @Column(name = "title", length = 100, nullable = false)
     private String title;
 
-    @Column (name = "category", length = 100)
-    @Enumerated(EnumType.STRING)
-    private MediaCategory category;
+    @Column (name = "media_type", length = 100, nullable = false)
+    private String mediaCategory;
 
-    @Column(name = "release_date", length = 100)
+
+    @Column(name = "release_date", length = 100, nullable = false)
     private Date releaseDate;
 
-    @Column(name = "url", length = 100)
+    @Column(name = "url", length = 100, nullable = false)
     private String url;
 
     @ManyToMany (cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
@@ -65,12 +65,12 @@ public class Media {
         this.title = title;
     }
 
-    public MediaCategory getCategory() {
-        return category;
+    public String getMediaCategory() {
+        return mediaCategory;
     }
 
-    public void setCategory(MediaCategory category) {
-        this.category = category;
+    public void setMediaCategory(String mediaCategory) {
+        this.mediaCategory = mediaCategory;
     }
 
     public Date getReleaseDate() {
