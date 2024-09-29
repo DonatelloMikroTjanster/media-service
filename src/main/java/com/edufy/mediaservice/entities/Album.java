@@ -14,7 +14,7 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", length = 50)
+    @Column(name = "name", length = 100)
     private String name;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -74,4 +74,5 @@ public class Album {
     public void setMedia(Set<Media> media) {
         this.media = media;
     }
+
 }
