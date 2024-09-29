@@ -21,9 +21,6 @@ public class Album {
     @Column(name = "release_date")
     private Date releaseDate;
 
-    @Transient
-    private Set<Artist> artists;
-
     @OneToMany(mappedBy = "album", fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<Media> media =  new HashSet<>();
@@ -61,14 +58,4 @@ public class Album {
         return media;
     }
 
-    public void setMedia(Set<Media> media) {
-        this.media = media;
-    }
-    public Set<Artist> getArtists() {
-        return artists;
-    }
-
-    public void setArtists(Set<Artist> artists) {
-        this.artists = artists;
-    }
 }
