@@ -50,7 +50,6 @@ public class Media {
     private Set<Artist> artists = new HashSet<>();
 
 
-
     public Media() {
     }
 
@@ -94,12 +93,12 @@ public class Media {
         this.url = url;
     }
 
-    public Set<Genre> getGenres() {
-        return genres;
+    public String getGenre() {
+        return genre;
     }
 
-    public void setGenres(Set<Genre> genres) {
-        this.genres = genres;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     public Album getAlbum() {
