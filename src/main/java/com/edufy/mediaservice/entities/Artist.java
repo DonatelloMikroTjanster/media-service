@@ -16,6 +16,10 @@ public class Artist {
     @Column(name = "name", length = 100 )
     private String name;
 
+    @Column(name = "genre", nullable = false, length = 100)
+    private String genre;
+
+
     @ManyToMany(mappedBy = "artists", cascade = CascadeType.ALL)
     private Set<Media> media = new HashSet<>();
 

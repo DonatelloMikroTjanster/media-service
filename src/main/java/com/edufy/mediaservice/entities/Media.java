@@ -27,11 +27,16 @@ public class Media {
     @Column(name = "url", length = 100, nullable = false)
     private String url;
 
-    @ManyToMany (cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @Column(name = "genre", nullable = false, length = 100)
+    private String genre;
+
+
+    /*@ManyToMany (cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "media_genre",
             joinColumns = @JoinColumn(name = "media_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id"))
-    private Set<Genre> genres = new HashSet<>();
+    private Set<Genre> genres = new HashSet<>(); */
+
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "album_id")
