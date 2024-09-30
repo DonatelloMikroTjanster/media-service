@@ -75,7 +75,7 @@ public class MediaService {
         if (media.getReleaseDate() == null) {
             throw new RuntimeException("Release date is required");
         }
-        if (media.getCategory() == null) {
+        if (media.getMediaCategory() == null) {
             throw new RuntimeException("Category is required");
         }
 
@@ -101,19 +101,12 @@ public class MediaService {
             media.setArtists(artists);
         }
 
-        if (media.getGenres() != null && !media.getGenres().isEmpty()) {
-            Set<Genre> genres = new HashSet<>();
-            for (Genre genre : media.getGenres()) {
-                Optional<Genre> foundGenre = genreRepository.findById(genre.getId());
-                if (foundGenre.isPresent()) {
-                    genres.add(foundGenre.get());
-                } else {
-                    throw new RuntimeException("Genre not found");
-                }
-            }
-            media.setGenres(genres);
+        if (media.getGenre() != null && !media.getGenre().isEmpty()) {
+            String genreName = media.getGenre().substring(0, 1).toUpperCase() + media.getGenre().substring(1).toLowerCase();
+            media.setGenre(genreName);
+        } else {
+            throw new RuntimeException("Genre not found");
         }
-
 
         return mediaRepository.save(media);
 
