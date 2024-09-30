@@ -62,5 +62,13 @@ public class Artist {
         this.albums = albums;
     }
 
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
 
 }
