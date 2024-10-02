@@ -75,7 +75,7 @@ public class MediaService {
         if (media.getReleaseDate() == null) {
             throw new RuntimeException("Release date is required");
         }
-        if (media.getMediaCategory() == null) {
+        if (media.getMediaType() == null) {
             throw new RuntimeException("Category is required");
         }
 

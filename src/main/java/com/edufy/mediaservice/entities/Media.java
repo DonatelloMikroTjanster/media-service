@@ -2,7 +2,7 @@ package com.edufy.mediaservice.entities;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,11 +18,11 @@ public class Media {
     private String title;
 
     @Column (name = "media_type", length = 100, nullable = false)
-    private String mediaCategory;
+    private String mediaType;
 
 
     @Column(name = "release_date", length = 100, nullable = false)
-    private Date releaseDate;
+    private LocalDate releaseDate;
 
     @Column(name = "url", length = 100, nullable = false)
     private String url;
@@ -30,6 +30,8 @@ public class Media {
     @Column(name = "genre", nullable = false, length = 100)
     private String genre;
 
+    @Column(name = "duration", nullable = false, length = 100)
+    private String duration;
 
     /*@ManyToMany (cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "media_genre",
@@ -69,19 +71,19 @@ public class Media {
         this.title = title;
     }
 
-    public String getMediaCategory() {
-        return mediaCategory;
+    public String getMediaType() {
+        return mediaType;
     }
 
-    public void setMediaCategory(String mediaCategory) {
-        this.mediaCategory = mediaCategory;
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
     }
 
-    public Date getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
 
@@ -101,6 +103,14 @@ public class Media {
         this.genre = genre;
     }
 
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
     public Album getAlbum() {
         return album;
     }
@@ -116,6 +126,4 @@ public class Media {
     public void setArtists(Set<Artist> artists) {
         this.artists = artists;
     }
-
-
 }

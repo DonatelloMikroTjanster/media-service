@@ -17,13 +17,14 @@ public class Album {
     @Column(name = "name", length = 100)
     private String name;
 
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "release_date")
     private Date releaseDate;
 
-    @OneToMany(mappedBy = "album", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
-    private Set<Media> media =  new HashSet<>();
+    private Set<Media> media = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "album_artist",
