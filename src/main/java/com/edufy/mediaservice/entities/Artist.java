@@ -16,10 +16,6 @@ public class Artist {
     @Column(name = "name", length = 100 )
     private String name;
 
-    @Column(name = "genre", nullable = false, length = 100)
-    private String genre;
-
-
     @ManyToMany(mappedBy = "artists", cascade = CascadeType.ALL)
     private Set<Media> media = new HashSet<>();
 
@@ -28,6 +24,14 @@ public class Artist {
     private Set<Album> albums = new HashSet<>();
 
     public Artist() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -46,14 +50,6 @@ public class Artist {
         this.media = media;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Set<Album> getAlbums() {
         return albums;
     }
@@ -61,14 +57,4 @@ public class Artist {
     public void setAlbums(Set<Album> albums) {
         this.albums = albums;
     }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-
 }

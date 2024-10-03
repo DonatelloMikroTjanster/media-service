@@ -1,6 +1,7 @@
 package com.edufy.mediaservice.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -8,20 +9,20 @@ import java.util.Set;
 
 @Entity
 @Table(name = "genre")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Genre {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "name", length = 100 )
     private String name;
 
-    @Column(name = "media", length = 100 )
-    @ManyToMany(mappedBy = "genres", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "genre", cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<Media> media= new HashSet<>();
+    private Set<Media> media = new HashSet<>();
 
     public Genre() {
     }
