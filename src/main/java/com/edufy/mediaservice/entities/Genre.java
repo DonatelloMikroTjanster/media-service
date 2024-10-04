@@ -24,7 +24,12 @@ public class Genre {
     @JsonIgnore
     private Set<Media> media = new HashSet<>();
 
-    public Genre(String genreName) {
+    @OneToMany(mappedBy = "genre", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<Artist> artists = new HashSet<>();
+
+
+    public Genre() {
     }
 
     public Long getId() {
@@ -49,5 +54,9 @@ public class Genre {
 
     public void setMedia(Set<Media> media) {
         this.media = media;
+    }
+
+    public Set<Artist> getArtists() {
+        return artists;
     }
 }

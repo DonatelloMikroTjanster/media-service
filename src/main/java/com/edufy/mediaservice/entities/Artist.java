@@ -16,6 +16,10 @@ public class Artist {
     @Column(name = "name", length = 100 )
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "genre_id")
+    private Genre genre;
+
     @ManyToMany(mappedBy = "artists", cascade = CascadeType.ALL)
     private Set<Media> media = new HashSet<>();
 
@@ -57,4 +61,13 @@ public class Artist {
     public void setAlbums(Set<Album> albums) {
         this.albums = albums;
     }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
 }

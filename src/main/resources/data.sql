@@ -10,6 +10,30 @@ VALUES
     (6, 'Classical');
 
 
+  -- Insert Albums
+INSERT IGNORE INTO album (id, name, release_date)
+VALUES
+    (1, 'Abbey Road', '1969-09-26'),
+    (2, 'Thriller', '1982-11-30'),
+    (3, 'Tech Talk Series', '2023-01-01'),
+    (4, 'Planet Earth II Series', '2016-11-06');
+
+
+  -- Insert Artists with correct genre_id
+INSERT IGNORE INTO artist (name, genre_id)
+VALUES
+    ('The Beatles', 3),          -- Genre ID 3 for Rock ("Come Together")
+    ('Michael Jackson', 4),      -- Genre ID 4 for Pop ("Billie Jean")
+    ('Elon Musk', 1),            -- Genre ID 1 for Technology ("Tech Talk Series" podcasts)
+    ('David Attenborough', 2),   -- Genre ID 2 for Nature ("Planet Earth II Series" documentaries)
+    ('Miles Davis', 5),          -- Genre ID 5 for Jazz ("So What")
+    ('Ludwig van Beethoven', 6), -- Genre ID 6 for Classical ("Beethoven Symphony No. 9")
+    ('Various Artists', 3),      -- Genre ID 3 for Rock ("Rock Legends Vol 2" and "Rock Legends Vol 3")
+    ('Various Pop Artists', 4),  -- Genre ID 4 for Pop ("Pop Classics" and "Pop Forever")
+    ('Jazz Ensemble', 5);        -- Genre ID 5 for Jazz ("Jazz Vibes Episode 2" and "Jazz Beats")
+
+
+
 
 -- Insert media entries with album IDs
 INSERT IGNORE INTO media (id, title, media_type, genre_id, release_date, url, duration, album_id)
@@ -25,7 +49,7 @@ VALUES
     (9, 'Nature Wonders', 'Documentary', 2, '2018-01-05', 'http://example.com/nature-wonders', '00:50:00', 4),
     (10, 'Rock Legends Vol 2', 'Music', 3, '1997-08-22', 'http://example.com/rock-legends-2', '00:03:50', NULL),
     (11, 'Pop Classics', 'Music', 4, '2021-09-30', 'http://example.com/pop-classics', '00:03:20', NULL),
-    (12, 'Classical Gems', 'Music', 6, '1805-01-01', 'http://example.com/classical-gems', '01:20:00', NULL),
+    (12, 'Classical Masterpieces', 'Music', 6, '2023-04-01', 'http://example.com/classical-masterpieces', '01:20:00', NULL),
     (13, 'Technology Insights', 'Podcast', 1, '2023-04-05', 'http://example.com/tech-insights', '00:25:00', 3),
     (14, 'The Nature Chronicles', 'Documentary', 2, '2021-07-12', 'http://example.com/nature-chronicles', '00:45:00', 4),
     (15, 'Rock Legends Vol 3', 'Music', 3, '1999-10-10', 'http://example.com/rock-legends-3', '00:04:10', NULL),
