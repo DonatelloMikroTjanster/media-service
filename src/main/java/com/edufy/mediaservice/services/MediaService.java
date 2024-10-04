@@ -36,9 +36,9 @@ public class MediaService {
     }
 
 
-    public List<Media> getMediaByCategory(MediaCategory category) {
+    public List<Media> getMediaByType(String mediaType) {
 
-        List<Media> mediaList = mediaRepository.findByCategory(category);
+        List<Media> mediaList = mediaRepository.findByMediaType(mediaType);
         if (mediaList.isEmpty()) {
             throw new RuntimeException("No media found for category");
         }
@@ -48,7 +48,7 @@ public class MediaService {
     public List<Media> getMediaByGenre(String genre) {
 
         String genreName = genre.substring(0, 1).toUpperCase() + genre.substring(1).toLowerCase();
-        List<Media> mediaList = mediaRepository.findByGenresName(genreName);
+        List<Media> mediaList = mediaRepository.findByGenreName(genreName);
         if (mediaList.isEmpty()) {
             throw new RuntimeException("No media found for genre");
         } else {
@@ -101,9 +101,9 @@ public class MediaService {
             media.setArtists(artists);
         }
 
-        if (media.getGenre() != null && !media.getGenre().isEmpty()) {
-            String genreName = media.getGenre().substring(0, 1).toUpperCase() + media.getGenre().substring(1).toLowerCase();
-            media.setGenre(genreName);
+        if (media.getGenre() != null && !media.getGenre().getName().isEmpty()) {
+            String genreName = media.getGenre().getName().substring(0, 1).toUpperCase() + media.getGenre().getName().substring(1).toLowerCase();
+            media.setGenre(new Genre(genreName));
         } else {
             throw new RuntimeException("Genre not found");
         }

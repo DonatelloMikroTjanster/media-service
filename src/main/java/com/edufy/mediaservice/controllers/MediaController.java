@@ -1,7 +1,6 @@
 package com.edufy.mediaservice.controllers;
 
 import com.edufy.mediaservice.entities.Media;
-import com.edufy.mediaservice.entities.MediaCategory;
 import com.edufy.mediaservice.services.MediaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -51,13 +50,10 @@ public class MediaController {
     }
 
     @GetMapping("/bycategory/{category}")
-    public ResponseEntity<?> getMediaByCategory(@PathVariable String category) {
+    public ResponseEntity<?> getMediaByCategory(@PathVariable String mediatype) {
         try {
-            MediaCategory mediaCategory = MediaCategory.valueOf(category.toUpperCase());
-            List<Media> mediaList = mediaService.getMediaByCategory(mediaCategory);
+            List<Media> mediaList = mediaService.getMediaByType(mediatype);
             return ResponseEntity.ok(mediaList);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(400).body("Invalid category");
         } catch (RuntimeException e) {
             return ResponseEntity.status(404).body(e.getMessage());
         }

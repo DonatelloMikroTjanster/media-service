@@ -24,7 +24,7 @@ public class Genre {
     @JsonIgnore
     private Set<Media> media = new HashSet<>();
 
-    public Genre() {
+    public Genre(String genreName) {
     }
 
     public Long getId() {
