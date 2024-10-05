@@ -59,4 +59,8 @@ public class Genre {
     public Set<Artist> getArtists() {
         return artists;
     }
+
+    public void setArtists(Set<Artist> artists) {
+        this.artists = artists;
+    }
 }

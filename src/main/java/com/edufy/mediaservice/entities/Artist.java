@@ -18,13 +18,16 @@ public class Artist {
 
     @ManyToOne
     @JoinColumn(name = "genre_id")
+    @JsonIgnore
     private Genre genre;
 
     @ManyToMany(mappedBy = "artists", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Media> media = new HashSet<>();
 
 
     @ManyToMany(mappedBy = "artists", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Album> albums = new HashSet<>();
 
     public Artist() {
