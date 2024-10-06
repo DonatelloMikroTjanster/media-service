@@ -1,5 +1,6 @@
 package com.edufy.mediaservice.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.Date;
@@ -16,12 +17,20 @@ public class Album {
     @Column(name = "name", length = 100)
     private String name;
 
-    @Column(name = "release_date", length = 100)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @Column(name = "release_date")
     private Date releaseDate;
 
-    @OneToMany(mappedBy = "album", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
-    private Set<Media> media =  new HashSet<>();
+    private Set<Media> media = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(name = "album_artist",
+            joinColumns = @JoinColumn(name = "album_id"),
+            inverseJoinColumns = @JoinColumn(name = "artist_id"))
+    private Set<Artist> artists = new HashSet<>();
+
 
     public Album() {
     }
@@ -50,6 +59,14 @@ public class Album {
         this.releaseDate = releaseDate;
     }
 
+    public Set<Artist> getArtists() {
+        return artists;
+    }
+
+    public void setArtists(Set<Artist> artists) {
+        this.artists = artists;
+    }
+
     public Set<Media> getMedia() {
         return media;
     }
@@ -57,4 +74,5 @@ public class Album {
     public void setMedia(Set<Media> media) {
         this.media = media;
     }
+
 }

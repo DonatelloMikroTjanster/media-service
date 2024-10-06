@@ -36,9 +36,9 @@ public class MediaService {
     }
 
 
-    public List<Media> getMediaByCategory(MediaCategory category) {
+    public List<Media> getMediaByType(String mediaType) {
 
-        List<Media> mediaList = mediaRepository.findByCategory(category);
+        List<Media> mediaList = mediaRepository.findByMediaType(mediaType);
         if (mediaList.isEmpty()) {
             throw new RuntimeException("No media found for category");
         }
@@ -48,7 +48,7 @@ public class MediaService {
     public List<Media> getMediaByGenre(String genre) {
 
         String genreName = genre.substring(0, 1).toUpperCase() + genre.substring(1).toLowerCase();
-        List<Media> mediaList = mediaRepository.findByGenresName(genreName);
+        List<Media> mediaList = mediaRepository.findByGenreName(genreName);
         if (mediaList.isEmpty()) {
             throw new RuntimeException("No media found for genre");
         } else {
@@ -66,6 +66,26 @@ public class MediaService {
     }
 
     public Media saveMedia(Media media) {
+        validateMedia(media);
+
+        if (media.getAlbum() != null) {
+            media.setAlbum(findAlbumById(media.getAlbum().getId()));
+        }
+
+        if (media.getArtists() != null && !media.getArtists().isEmpty()) {
+            media.setArtists(findArtistsByIds(media.getArtists()));
+        }
+
+        if (media.getGenre() != null && !media.getGenre().getName().isEmpty()) {
+            media.setGenre(findGenreByName(media.getGenre().getName()));
+        } else {
+            throw new RuntimeException("Genre not found");
+        }
+
+        return mediaRepository.save(media);
+    }
+
+    private void validateMedia(Media media) {
         if (media.getTitle() == null || media.getTitle().isEmpty()) {
             throw new RuntimeException("Title is required");
         }
@@ -75,48 +95,28 @@ public class MediaService {
         if (media.getReleaseDate() == null) {
             throw new RuntimeException("Release date is required");
         }
-        if (media.getCategory() == null) {
+        if (media.getMediaType() == null) {
             throw new RuntimeException("Category is required");
         }
+    }
 
-        if (media.getAlbum() != null) {
-            Optional<Album> album = albumRepository.findById(media.getAlbum().getId());
-            if (album.isPresent()) {
-                media.setAlbum(album.get());
-            } else {
-                throw new RuntimeException("Album not found");
-            }
+    private Album findAlbumById(Long id) {
+        return albumRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Album not found"));
+    }
+
+    private Set<Artist> findArtistsByIds(Set<Artist> artists) {
+        Set<Artist> foundArtists = new HashSet<>();
+        for (Artist artist : artists) {
+            foundArtists.add(artistRepository.findById(artist.getId())
+                    .orElseThrow(() -> new RuntimeException("Artist not found")));
         }
+        return foundArtists;
+    }
 
-        if (media.getArtists() != null && !media.getArtists().isEmpty()) {
-            Set<Artist> artists = new HashSet<>();
-            for (Artist artist : media.getArtists()) {
-                Optional<Artist> foundArtist = artistRepository.findById(artist.getId());
-                if (foundArtist.isPresent()) {
-                    artists.add(foundArtist.get());
-                } else {
-                    throw new RuntimeException("Artist not found");
-                }
-            }
-            media.setArtists(artists);
-        }
-
-        if (media.getGenres() != null && !media.getGenres().isEmpty()) {
-            Set<Genre> genres = new HashSet<>();
-            for (Genre genre : media.getGenres()) {
-                Optional<Genre> foundGenre = genreRepository.findById(genre.getId());
-                if (foundGenre.isPresent()) {
-                    genres.add(foundGenre.get());
-                } else {
-                    throw new RuntimeException("Genre not found");
-                }
-            }
-            media.setGenres(genres);
-        }
-
-
-        return mediaRepository.save(media);
-
+    private Genre findGenreByName(String name) {
+        String genreName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+        return genreRepository.findByName(genreName);
     }
 
     public Media updateMedia(Long id, Media mediaDetails) {

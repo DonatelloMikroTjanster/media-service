@@ -1,37 +1,47 @@
 package com.edufy.mediaservice.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "media")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Media {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "title", length = 100)
     private String title;
 
-    @Column (name = "category", length = 100)
-    @Enumerated(EnumType.STRING)
-    private MediaCategory category;
+    @Column (name = "media_type", length = 100)
+    private String mediaType;
+
+    @ManyToOne
+    @JoinColumn(name = "genre_id")
+    private Genre genre;
 
     @Column(name = "release_date", length = 100)
-    private Date releaseDate;
+    private LocalDate releaseDate;
 
     @Column(name = "url", length = 100)
     private String url;
 
-    @ManyToMany (cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @Column(name = "duration", length = 100)
+    private String duration;
+
+    /*@ManyToMany (cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "media_genre",
             joinColumns = @JoinColumn(name = "media_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id"))
-    private Set<Genre> genres = new HashSet<>();
+    private Set<Genre> genres = new HashSet<>(); */
+
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "album_id")
@@ -43,7 +53,6 @@ public class Media {
             joinColumns = @JoinColumn(name = "media_id"),
             inverseJoinColumns = @JoinColumn(name = "artist_id"))
     private Set<Artist> artists = new HashSet<>();
-
 
 
     public Media() {
@@ -65,19 +74,27 @@ public class Media {
         this.title = title;
     }
 
-    public MediaCategory getCategory() {
-        return category;
+    public String getMediaType() {
+        return mediaType;
     }
 
-    public void setCategory(MediaCategory category) {
-        this.category = category;
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
     }
 
-    public Date getReleaseDate() {
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
 
@@ -89,12 +106,12 @@ public class Media {
         this.url = url;
     }
 
-    public Set<Genre> getGenres() {
-        return genres;
+    public String getDuration() {
+        return duration;
     }
 
-    public void setGenres(Set<Genre> genres) {
-        this.genres = genres;
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 
     public Album getAlbum() {

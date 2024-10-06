@@ -1,47 +1,87 @@
+
 -- Insert Genres
-INSERT INTO genre (id, name) VALUES
-                                 (1, 'Pop'),
-                                 (2, 'Rock'),
-                                 (3, 'Technology'),
-                                 (4, 'Documentary');
--- Insert Artists
-INSERT INTO artist (id, name) VALUES
-                                  (1, 'The Beatles'),
-                                  (2, 'Michael Jackson'),
-                                  (3, 'Elon Musk'),
-                                  (4, 'David Attenborough'),
-                                  (5, 'Paul McCartney'),
-                                  (6, 'Quincy Jones');
--- Insert Albums
-INSERT INTO album (id, name, release_date)
+INSERT IGNORE INTO genre (id, name)
+VALUES
+    (1, 'Technology'),
+    (2, 'Nature'),
+    (3, 'Rock'),
+    (4, 'Pop'),
+    (5, 'Jazz'),
+    (6, 'Classical');
+
+
+  -- Insert Albums
+INSERT IGNORE INTO album (id, name, release_date)
 VALUES
     (1, 'Abbey Road', '1969-09-26'),
     (2, 'Thriller', '1982-11-30'),
     (3, 'Tech Talk Series', '2023-01-01'),
-    (4, 'Planet Earth II', '2016-11-06');
+    (4, 'Planet Earth II Series', '2016-11-06');
 
--- Insert Media
-INSERT INTO media (title, release_date, url, category, album_id)
+
+  -- Insert Artists with correct genre_id
+INSERT IGNORE INTO artist (name, genre_id)
 VALUES
-    ('Come Together', '1969-09-26', 'https://spotify.com/music/come-together', 'MUSIC', 1),
-    ('Billie Jean', '1982-11-30', 'https://spotify.com/music/billie-jean', 'MUSIC', 2),
-    ('Tech Talk Episode 1', '2023-01-15', 'https://spotify.com/podcasts/tech-talk-1', 'PODCAST', 3),
-    ('Planet Earth II Episode 1', '2016-11-06', 'https://netflix.com/videos/planet-earth-ii-1', 'VIDEO', 4);
+    ('The Beatles', 3),          -- Genre ID 3 for Rock ("Come Together")
+    ('Michael Jackson', 4),      -- Genre ID 4 for Pop ("Billie Jean")
+    ('Elon Musk', 1),            -- Genre ID 1 for Technology ("Tech Talk Series" podcasts)
+    ('David Attenborough', 2),   -- Genre ID 2 for Nature ("Planet Earth II Series" documentaries)
+    ('Miles Davis', 5),          -- Genre ID 5 for Jazz ("So What")
+    ('Ludwig van Beethoven', 6), -- Genre ID 6 for Classical ("Beethoven Symphony No. 9")
+    ('Various Artists', 3),      -- Genre ID 3 for Rock ("Rock Legends Vol 2" and "Rock Legends Vol 3")
+    ('Various Pop Artists', 4),  -- Genre ID 4 for Pop ("Pop Classics" and "Pop Forever")
+    ('Jazz Ensemble', 5);        -- Genre ID 5 for Jazz ("Jazz Vibes Episode 2" and "Jazz Beats")
 
 
--- Insert into media_genre link table
-INSERT INTO media_genre (media_id, genre_id) VALUES
-                                                 (1, 1), -- 'Come Together' is 'Pop'
-                                                 (2, 1), -- 'Billie Jean' is 'Pop'
-                                                 (3, 3), -- 'Tech Talk Episode 1' is 'Technology'
-                                                 (4, 4); -- 'Planet Earth II Episode 1' is 'Documentary'
+
+
+-- Insert media entries with album IDs
+INSERT IGNORE INTO media (id, title, media_type, genre_id, release_date, url, duration, album_id)
+VALUES
+    (1, 'Tech Talk Episode 1', 'Podcast', 1, '2023-01-01', 'http://example.com/tech-talk-1', '00:30:00', 3),
+    (2, 'Planet Earth II Episode 1', 'Documentary', 2, '2016-11-06', 'http://example.com/planet-earth-2-1', '01:00:00', 4),
+    (3, 'Come Together', 'Song', 3, '1969-09-26', 'http://example.com/come-together', '00:04:20', 1),
+    (4, 'Billie Jean', 'Song', 4, '1982-11-30', 'http://example.com/billie-jean', '00:04:54', 2),
+    (5, 'So What', 'Song', 5, '1959-08-17', 'http://example.com/so-what', '00:09:22', NULL),
+    (6, 'Beethoven Symphony No. 9', 'Song', 6, '1824-05-07', 'http://example.com/beethoven-9', '01:05:00', NULL),
+    (7, 'Jazz Vibes Episode 2', 'Podcast', 5, '2022-06-08', 'http://example.com/jazz-vibes-2', '00:40:00', NULL),
+    (8, 'The Future of Tech II', 'Podcast', 1, '2023-03-01', 'http://example.com/future-tech-2', '00:35:00', 3),
+    (9, 'Nature Wonders', 'Documentary', 2, '2018-01-05', 'http://example.com/nature-wonders', '00:50:00', 4),
+    (10, 'Rock Legends Vol 2', 'Music', 3, '1997-08-22', 'http://example.com/rock-legends-2', '00:03:50', NULL),
+    (11, 'Pop Classics', 'Music', 4, '2021-09-30', 'http://example.com/pop-classics', '00:03:20', NULL),
+    (12, 'Classical Masterpieces', 'Music', 6, '2023-04-01', 'http://example.com/classical-masterpieces', '01:20:00', NULL),
+    (13, 'Technology Insights', 'Podcast', 1, '2023-04-05', 'http://example.com/tech-insights', '00:25:00', 3),
+    (14, 'The Nature Chronicles', 'Documentary', 2, '2021-07-12', 'http://example.com/nature-chronicles', '00:45:00', 4),
+    (15, 'Rock Legends Vol 3', 'Music', 3, '1999-10-10', 'http://example.com/rock-legends-3', '00:04:10', NULL),
+    (16, 'Pop Forever', 'Music', 4, '2022-11-18', 'http://example.com/pop-forever', '00:03:30', NULL),
+    (17, 'Jazz Beats', 'Podcast', 5, '2022-02-01', 'http://example.com/jazz-beats', '00:38:00', 3),
+    (18, 'Classical Elegance', 'Music', 6, '1810-12-20', 'http://example.com/classical-elegance', '01:30:00', NULL),
+    (19, 'Tech Innovators', 'Podcast', 1, '2023-05-15', 'http://example.com/tech-innovators', '00:30:00', 3),
+    (20, 'Exploring Nature', 'Documentary', 2, '2021-05-20', 'http://example.com/exploring-nature', '00:55:00', 4);
+
+
+
 
 -- Insert into media_artist link table
-INSERT INTO media_artist (media_id, artist_id) VALUES
-                                                   (1, 1), -- 'Come Together' by 'The Beatles'
-                                                   (1, 5), -- 'Come Together' also by 'Paul McCartney'
-                                                   (2, 2), -- 'Billie Jean' by 'Michael Jackson'
-                                                   (2, 6), -- 'Billie Jean' also by 'Quincy Jones'
-                                                   (3, 3), -- 'Tech Talk Episode 1' by 'Elon Musk'
-                                                   (4, 4); -- 'Planet Earth II Episode 1' by 'David Attenborough'
-
+INSERT IGNORE INTO media_artist (media_id, artist_id)
+VALUES
+    (1, 3),  -- Tech Talk Episode 1 by Elon Musk
+    (2, 4),  -- Planet Earth II Episode 1 by David Attenborough
+    (3, 1),  -- Come Together by The Beatles
+    (4, 2),  -- Billie Jean by Michael Jackson
+    (5, 1),  -- So What by The Beatles (example)
+    (6, 2),  -- Beethoven Symphony No. 9 by Michael Jackson (example)
+    (7, 3),  -- Jazz Vibes Episode 2 by Elon Musk (example)
+    (8, 3),  -- The Future of Tech II by Elon Musk (example)
+    (9, 4),  -- Nature Wonders by David Attenborough (example)
+    (10, 1), -- Rock Legends Vol 2 by The Beatles (example)
+    (11, 2), -- Pop Classics by Michael Jackson (example)
+    (12, 1), -- Classical Gems by The Beatles (example)
+    (13, 3), -- Technology Insights by Elon Musk (example)
+    (14, 4), -- The Nature Chronicles by David Attenborough (example)
+    (15, 1), -- Rock Legends Vol 3 by The Beatles (example)
+    (16, 2), -- Pop Forever by Michael Jackson (example)
+    (17, 3), -- Jazz Beats by Elon Musk (example)
+    (18, 1), -- Classical Elegance by The Beatles (example)
+    (19, 3), -- Tech Innovators by Elon Musk (example)
+    (20, 4); -- Exploring Nature by David Attenborough (example)
